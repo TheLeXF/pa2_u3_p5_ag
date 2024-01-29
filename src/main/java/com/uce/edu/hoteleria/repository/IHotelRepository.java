@@ -14,12 +14,12 @@ public interface IHotelRepository {
 
 	public void eliminar(Integer id);
 
-	public List<Hotel> seleccionarInnerJoin(); 
+	public List<Hotel> seleccionarInnerJoin(String nombre); 
 
-	public List<Hotel> seleccionarRightJoin(); 
+	public List<Hotel> seleccionarRightJoin(String direccion); 
 	
-	public List<Hotel> seleccionarLeftJoin(); 
+	public List<Hotel> seleccionarLeftJoin(String clase); 
 	
-	public List<Hotel> seleccionarFullJoin(); 
+	public List<Hotel> seleccionarFullJoin(String noHabitacion); 
 
 }

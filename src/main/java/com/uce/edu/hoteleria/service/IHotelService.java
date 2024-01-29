@@ -14,11 +14,11 @@ public interface IHotelService {
 
 	public void borrar(Integer id);
 
-	public List<Hotel> buscarInnerJoin(); 
+	public List<Hotel> buscarInnerJoin(String nombre); 
 
-	public List<Hotel> buscararRightJoin(); 
+	public List<Hotel> buscararRightJoin(String direccion); 
 	
-	public List<Hotel> buscarLeftJoin(); 
+	public List<Hotel> buscarLeftJoin(String clase); 
 	
-	public List<Hotel> buscarFullJoin(); 
+	public List<Hotel> buscarFullJoin(String noHabitacion); 
 }

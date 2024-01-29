@@ -43,9 +43,10 @@ public class HotelRepositoryImpl implements IHotelRepository {
 	}
 
 	@Override
-	public List<Hotel> seleccionarInnerJoin() {
-		TypedQuery<Hotel> myQuery = this.entityManager.createQuery("SELECT h FROM Hotel h JOIN h.habitaciones b",
-				Hotel.class);
+	public List<Hotel> seleccionarInnerJoin(String nombre) {
+		TypedQuery<Hotel> myQuery = this.entityManager
+				.createQuery("SELECT h FROM Hotel h JOIN h.habitaciones b WHERE h.nombre=:nombre", Hotel.class);
+		myQuery.setParameter("nombre", nombre);
 		List<Hotel> list = myQuery.getResultList();
 		for (Hotel h1 : list) {
 			h1.getHabitaciones().size();
@@ -55,9 +56,10 @@ public class HotelRepositoryImpl implements IHotelRepository {
 	}
 
 	@Override
-	public List<Hotel> seleccionarRightJoin() {
-		TypedQuery<Hotel> myQuery = this.entityManager.createQuery("SELECT h FROM Hotel h RIGHT JOIN h.habitaciones b",
-				Hotel.class);
+	public List<Hotel> seleccionarRightJoin(String direccion) {
+		TypedQuery<Hotel> myQuery = this.entityManager.createQuery(
+				"SELECT h FROM Hotel h RIGHT JOIN h.habitaciones b WHERE h.direccion=:direccion", Hotel.class);
+		myQuery.setParameter("direccion", direccion);
 		List<Hotel> list = myQuery.getResultList();
 		for (Hotel h1 : list) {
 			h1.getHabitaciones().size();
@@ -67,9 +69,10 @@ public class HotelRepositoryImpl implements IHotelRepository {
 	}
 
 	@Override
-	public List<Hotel> seleccionarLeftJoin() {
-		TypedQuery<Hotel> myQuery = this.entityManager.createQuery("SELECT h FROM Hotel h LEFT JOIN h.habitaciones b",
-				Hotel.class);
+	public List<Hotel> seleccionarLeftJoin(String clase) {
+		TypedQuery<Hotel> myQuery = this.entityManager
+				.createQuery("SELECT h FROM Hotel h LEFT JOIN h.habitaciones b WHERE b.clase=:clase", Hotel.class);
+		myQuery.setParameter("clase", clase);
 		List<Hotel> list = myQuery.getResultList();
 		for (Hotel h1 : list) {
 			h1.getHabitaciones().size();
@@ -79,9 +82,10 @@ public class HotelRepositoryImpl implements IHotelRepository {
 	}
 
 	@Override
-	public List<Hotel> seleccionarFullJoin() {
-		TypedQuery<Hotel> myQuery = this.entityManager.createQuery("SELECT h FROM Hotel h FULL JOIN h.habitaciones b",
-				Hotel.class);
+	public List<Hotel> seleccionarFullJoin(String noHabitacion) {
+		TypedQuery<Hotel> myQuery = this.entityManager
+				.createQuery("SELECT h FROM Hotel h FULL JOIN h.habitaciones b WHERE b.numero=: numero ", Hotel.class);
+		myQuery.setParameter("numero", noHabitacion);
 		List<Hotel> list = myQuery.getResultList();
 		for (Hotel h1 : list) {
 			h1.getHabitaciones().size();

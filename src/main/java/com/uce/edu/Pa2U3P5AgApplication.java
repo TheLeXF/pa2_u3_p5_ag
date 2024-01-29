@@ -25,25 +25,25 @@ public class Pa2U3P5AgApplication implements CommandLineRunner {
 		// TODO Auto-generated method stub
 		
 		System.out.println("JOIN - INNER JOIN");
-		List<Hotel>lista = this.hotelService.buscarInnerJoin();
+		List<Hotel>lista = this.hotelService.buscarInnerJoin("Marriot");
 		for(Hotel h :lista) {
 			System.out.println(h);
 		}
 		
 		System.out.println("RIGHT JOIN ");
 		
-		List<Hotel>lista2 = this.hotelService.buscararRightJoin();
+		List<Hotel>lista2 = this.hotelService.buscararRightJoin("Av. Orellana");
 		for(Hotel h :lista2) {
 			System.out.println(h);
 		}
 		System.out.println("LEFT JOIN");
-		List<Hotel>lista3 = this.hotelService.buscarLeftJoin();
+		List<Hotel>lista3 = this.hotelService.buscarLeftJoin("A10");
 		for(Hotel h :lista3) {
 			System.out.println(h);
 		}
 		
 		System.out.println("FULL JOIN");
-		List<Hotel>lista4 = this.hotelService.buscarFullJoin();
+		List<Hotel>lista4 = this.hotelService.buscarFullJoin("Basica");
 		for(Hotel h :lista4) {
 			System.out.println(h);
 			for (Habitacion d: h.getHabitaciones()) {
