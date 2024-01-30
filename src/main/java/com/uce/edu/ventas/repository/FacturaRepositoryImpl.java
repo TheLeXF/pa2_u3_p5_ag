@@ -46,12 +46,12 @@ public class FacturaRepositoryImpl implements IFacturaRepository {
 		//
 		// Aqui pongo la referencia que se encuentra en factura
 		// En JPQL: SELECT * FROM Factura f INNER JOIN f.detalleFactura d
-		TypedQuery<Factura> myQuery = this.entityManager
-				.createQuery("SELECT f FROM Factura f JOIN f.detalleFactura d", Factura.class);
+		TypedQuery<Factura> myQuery = this.entityManager.createQuery("SELECT f FROM Factura f JOIN f.detalleFactura d",
+				Factura.class);
 		List<Factura> list = myQuery.getResultList();
-		for (Factura f : list) {
-			f.getDetalleFactura().size();
-		}
+//		for (Factura f : list) {
+//			f.getDetalleFactura().size();
+//		}
 		return list;
 	}
 
@@ -89,6 +89,36 @@ public class FacturaRepositoryImpl implements IFacturaRepository {
 			f.getDetalleFactura().size();
 		}
 		return list;
+	}
+
+	@Override
+	public List<Factura> seleccionarFacturaWhereJoin() {
+		// TODO Auto-generated method stub
+		// SQL: SELECT f.* FROM factura f, detalle_factura d WHERE f.fact_id =
+		// d.defa_id_factura
+		// JPQL: SELECT f FROM Factura f, DetalleFactura d WHERE f =: d.factura
+		// Hibernate :
+		// Hibernate: select
+		// f1_0.fact_id,f1_0.fact_cedula,f1_0.fact_fecha,f1_0.fact_numero from factura
+		// f1_0,detalle_factura df1_0 where f1_0.fact_id=df1_0.defa_id_factura
+		TypedQuery<Factura> myQuery = this.entityManager
+				.createQuery("SELECT f FROM Factura f, DetalleFactura d WHERE f = d.factura", Factura.class);
+		List<Factura> list = myQuery.getResultList();
+		for (Factura f : list) {
+			f.getDetalleFactura().size();// Señal
+		}
+		return list;
+
+	}
+
+	@Override
+	public List<Factura> seleccionarFacturaFetchJoin() {
+		// TODO Auto-generated method stub
+		// JPQL FECTH: SELECT f FROM Factura f JOIN FECTH f.detalleFactura d
+		// JPQL INNERJOIN: SELECT f FROM Factura f JOIN f.detalleFactura d
+		TypedQuery<Factura> myQuery = this.entityManager
+				.createQuery("SELECT f FROM Factura f JOIN FETCH f.detalleFactura d", Factura.class);
+		return myQuery.getResultList();
 	}
 
 }
