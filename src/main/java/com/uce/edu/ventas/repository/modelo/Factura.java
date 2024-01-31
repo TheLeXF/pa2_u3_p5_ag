@@ -30,6 +30,9 @@ public class Factura {
 	private String cedula;
 	@OneToMany(mappedBy = "factura",cascade = CascadeType.ALL)
 	private List<DetalleFactura> detalleFactura;
+	
+	//100 Atributos
+	
 
 	public Integer getId() {
 		return id;
