@@ -5,16 +5,23 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
 import com.uce.edu.ventas.repository.IFacturaRepository;
+import com.uce.edu.ventas.repository.modelo.Cliente;
 import com.uce.edu.ventas.repository.modelo.Factura;
 import com.uce.edu.ventas.repository.modelo.dto.FacturaDTO;
+
+import jakarta.transaction.Transactional;
+import jakarta.transaction.Transactional.TxType;
 
 @Service
 public class FacturaServiceImpl implements IFacturaService {
 
 	@Autowired
 	private IFacturaRepository facturaRepository;
+	@Autowired
+	private IClienteService clienteService;
 
 	@Override
 	public Factura buscarPorNumero(String numero) {
@@ -23,11 +30,19 @@ public class FacturaServiceImpl implements IFacturaService {
 	}
 
 	@Override
-	public void guardar(Factura factura) {
+	@Transactional(value=TxType.REQUIRED)//T1
+	public void guardar(Factura factura, Cliente cliente) {
 		// TODO Auto-generated method stub
+		System.out.println(TransactionSynchronizationManager.isActualTransactionActive());
 		this.facturaRepository.insertar(factura);
+		System.out.println("Pasoe el insert de factura");
+		this.clienteService.guardar(cliente);
+		System.out.println("Pasoe el insert de cliente");
 	}
-
+	/*T1
+	 * 
+	 * 
+	 * */
 	@Override
 	public List<Factura> buscarFacturasInnerJoin() {
 		// TODO Auto-generated method stub
