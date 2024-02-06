@@ -19,8 +19,8 @@ public class Pa2U3P5AgApplication implements CommandLineRunner {
 	@Autowired 
 	private IFacturaService facturaService;
 	
-	@Autowired
-	private IClienteService clienteService;
+//	@Autowired
+//	private IClienteService clienteService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(Pa2U3P5AgApplication.class, args);
@@ -32,17 +32,18 @@ public class Pa2U3P5AgApplication implements CommandLineRunner {
 		
 		System.out.println(TransactionSynchronizationManager.isActualTransactionActive());
 		Factura fact=new Factura();
-		fact.setCedula("1321353");
+		fact.setCedula("17274553");
 		fact.setFecha(LocalDateTime.now());
-		fact.setNumero("001-004");
+		fact.setNumero("001-005");
 		
 		
 		Cliente c1 = new Cliente();
-		c1.setNombre("Alexis");
-		c1.setApellido("Espin");
+		c1.setNombre("Santiago");
+		c1.setApellido(null);
 		
-		this.facturaService.guardar(fact,c1);
-		
+		//this.facturaService.guardar(fact,c1);
+		System.out.println("Main: "+TransactionSynchronizationManager.isActualTransactionActive());
+		this.facturaService.prueba();
 		
 	}
 

@@ -14,6 +14,7 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
+import jakarta.transaction.Transactional.TxType;
 
 @Repository
 @Transactional
@@ -34,7 +35,7 @@ public class FacturaRepositoryImpl implements IFacturaRepository {
 	}
 
 	@Override
-
+	@Transactional(value = TxType.MANDATORY)
 	public void insertar(Factura factura) {
 		// TODO Auto-generated method stub
 		this.entityManager.persist(factura);
@@ -155,6 +156,7 @@ public class FacturaRepositoryImpl implements IFacturaRepository {
 	}
 
 	@Override
+	@Transactional(value = TxType.NOT_SUPPORTED	)
 	public Factura buscar(Integer id) {
 		// TODO Auto-generated method stub
 		return this.entityManager.find(Factura.class, id);
