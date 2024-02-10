@@ -1,5 +1,6 @@
 package com.uce.edu.ventas.repository.modelo;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -12,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name="factura")
@@ -28,6 +30,8 @@ public class Factura {
 	private LocalDateTime fecha;
 	@Column(name="fact_cedula")
 	private String cedula;
+	@Transient
+	private BigDecimal valorIva;
 	@OneToMany(mappedBy = "factura",cascade = CascadeType.ALL)
 	private List<DetalleFactura> detalleFactura;
 	
@@ -68,6 +72,12 @@ public class Factura {
 	public String toString() {
 		return "Factura [id=" + id + ", numero=" + numero + ", fecha=" + fecha + ", cedula=" + cedula
 				+ ", detalleFactura=" + detalleFactura + "]";
+	}
+	public BigDecimal getValorIva() {
+		return valorIva;
+	}
+	public void setValorIva(BigDecimal valorIva) {
+		this.valorIva = valorIva;
 	}
 	
 	

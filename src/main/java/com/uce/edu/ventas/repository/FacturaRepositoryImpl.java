@@ -98,6 +98,7 @@ public class FacturaRepositoryImpl implements IFacturaRepository {
 	}
 
 	@Override
+	@Transactional(value = TxType.NOT_SUPPORTED)
 	public List<Factura> seleccionarFacturaWhereJoin() {
 		// TODO Auto-generated method stub
 		// SQL: SELECT f.* FROM factura f, detalle_factura d WHERE f.fact_id =
@@ -118,6 +119,7 @@ public class FacturaRepositoryImpl implements IFacturaRepository {
 	}
 
 	@Override
+	@Transactional(value = TxType.NOT_SUPPORTED)
 	public List<Factura> seleccionarFacturaFetchJoin() {
 		// TODO Auto-generated method stub
 		// JPQL FECTH: SELECT f FROM Factura f JOIN FECTH f.detalleFactura d
@@ -126,7 +128,7 @@ public class FacturaRepositoryImpl implements IFacturaRepository {
 				.createQuery("SELECT f FROM Factura f JOIN FETCH f.detalleFactura d", Factura.class);
 		return myQuery.getResultList();
 	}
-
+	@Transactional(value = TxType.MANDATORY)
 	public int actualizarFechas(LocalDateTime fechaNueva, LocalDateTime fechaActual) {
 		// TODO Auto-generated method stub
 		// SELECT * FROM Factura f WHERE fecha >= fechaActual
@@ -144,8 +146,9 @@ public class FacturaRepositoryImpl implements IFacturaRepository {
 		// Cantidad de registros afectados/ actualizados
 		return myQuery.executeUpdate();
 	}
-
+	
 	@Override
+	@Transactional(value = TxType.MANDATORY)
 	public int eliminarPorNumero(String numero) {
 		// TODO Auto-generated method stub
 		// SQL: DELETE FROM factura WHERE fact_numero =:numero
@@ -163,6 +166,7 @@ public class FacturaRepositoryImpl implements IFacturaRepository {
 	}
 
 	@Override
+	@Transactional(value = TxType.MANDATORY)
 	public void eliminar(Integer id) {
 		// TODO Auto-generated method stub
 		this.entityManager.remove(this.buscar(id));
